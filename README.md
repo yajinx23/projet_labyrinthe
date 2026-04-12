@@ -6,7 +6,7 @@
 **Niveau :** Master 1 (GLSI & SRT)
 **Superviseur :** Dr Mouhamed DIOP
 
-## Membres du Groupe [Insérer votre numéro de groupe, ex: G1]
+## Membres du Groupe 13
 
 * Pape Yatma MBODJ
 * Cheikh Maba Alioune DIOP
