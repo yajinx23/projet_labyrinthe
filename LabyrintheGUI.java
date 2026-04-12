@@ -13,7 +13,7 @@ public class LabyrintheGUI extends JFrame {
         setSize(800, 650);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
 
         // 1. Zone du haut : Les boutons d'action
         JPanel panneauBoutons = new JPanel();
@@ -48,7 +48,7 @@ public class LabyrintheGUI extends JFrame {
         btnCharger.addActionListener(e -> chargerFichier());
         btnDFS.addActionListener(e -> resoudre(new DFSSolver(), "DFS"));
         btnBFS.addActionListener(e -> resoudre(new BFSSolver(), "BFS"));
-        
+
         // Action pour le bouton Comparer
         btnComparer.addActionListener(e -> comparerAlgorithmes());
     }
@@ -64,23 +64,24 @@ public class LabyrintheGUI extends JFrame {
     }
 
     private void resoudre(LabyrinteSolver solveur, String nomAlgo) {
-        if (labyrinthe == null) return;
-        
-        labyrinthe.reinitialiser(); 
+        if (labyrinthe == null)
+            return;
+
+        labyrinthe.reinitialiser();
         List<int[]> chemin = solveur.solve(labyrinthe);
-        
+
         if (chemin.isEmpty()) {
             labelStats.setText(" " + nomAlgo + " : Aucun chemin trouvé !");
         } else {
             labyrinthe.marquerChemin(chemin);
-            String stats = String.format(" [%s] Temps : %.3f ms | Cases explorées : %d | Longueur chemin : %d", 
-                                         nomAlgo, solveur.getTempsExecution(), solveur.getCasesExplorees(), chemin.size());
+            String stats = String.format(" [%s] Temps : %.3f ms | Cases explorées : %d | Longueur chemin : %d",
+                    nomAlgo, solveur.getTempsExecution(), solveur.getCasesExplorees(), chemin.size());
             labelStats.setText(stats);
         }
-        repaint(); 
+        repaint();
     }
 
-    // --- NOUVELLE MÉTHODE : COMPARATEUR INTÉGRÉ ---
+    // MÉTHODE DE COMPARAISON
     private void comparerAlgorithmes() {
         if (labyrinthe == null) {
             JOptionPane.showMessageDialog(this, "Veuillez charger un labyrinthe d'abord !");
@@ -99,7 +100,7 @@ public class LabyrintheGUI extends JFrame {
 
         // 3. Préparer le texte de comparaison
         String resultat = "=== COMPARAISON DES PERFORMANCES ===\n\n";
-        
+
         resultat += "► RECHERCHE EN PROFONDEUR (DFS) :\n";
         resultat += " - Temps : " + String.format("%.3f", dfs.getTempsExecution()) + " ms\n";
         resultat += " - Cases explorées : " + dfs.getCasesExplorees() + "\n";
@@ -127,19 +128,25 @@ public class LabyrintheGUI extends JFrame {
     }
 
     private void dessinerGrille(Graphics g) {
-        if (labyrinthe == null) return;
+        if (labyrinthe == null)
+            return;
 
         char[][] grille = labyrinthe.getGrille();
-        int tailleCase = 25; 
+        int tailleCase = 25;
 
         for (int i = 0; i < labyrinthe.getLignes(); i++) {
             for (int j = 0; j < labyrinthe.getColonnes(); j++) {
-                
-                if (grille[i][j] == '#') g.setColor(Color.DARK_GRAY);
-                else if (grille[i][j] == 'S') g.setColor(Color.GREEN);
-                else if (grille[i][j] == 'E') g.setColor(Color.RED);
-                else if (grille[i][j] == '+') g.setColor(Color.BLUE);
-                else g.setColor(Color.WHITE);
+
+                if (grille[i][j] == '#')
+                    g.setColor(Color.DARK_GRAY);
+                else if (grille[i][j] == 'S')
+                    g.setColor(Color.GREEN);
+                else if (grille[i][j] == 'E')
+                    g.setColor(Color.RED);
+                else if (grille[i][j] == '+')
+                    g.setColor(Color.BLUE);
+                else
+                    g.setColor(Color.WHITE);
 
                 g.fillRect(j * tailleCase, i * tailleCase, tailleCase, tailleCase);
                 g.setColor(Color.BLACK);
